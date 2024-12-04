@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EleveController!{% endblock %}
+
+{% block body %}
+    {% for note in eleve.notes %}
+        <p>Matière : {{ note.matiere }}</p>
+        <p>Moyenne : {{ note.getMoyenne() }}</p>
+    {% endfor %}
+
+{% endblock %}
