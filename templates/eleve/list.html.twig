@@ -5,6 +5,8 @@
 {% block body %}
     <h1>Liste des élèves</h1>
 
+    <a href="{{ path('eleve_new') }}" class="btn btn-primary">Ajouter un élève</a>
+
     <div class="eleves-list">
         {% if eleves %}
             <ul>

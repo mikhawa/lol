@@ -2,32 +2,53 @@
 
 namespace App\Controller;
 
+use App\Entity\Eleve;
+use App\Form\EleveType;
 use App\Repository\EleveRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class EleveController extends AbstractController
 {
-    #[Route('/eleve/{id}', name: 'eleve_show')]
-    public function show(int $id, EleveRepository $eleveRepository): Response
+    // Méthode pour afficher un élève spécifique
+    #[Route('/eleve/{id}', name: 'eleve_show', requirements: ['id' => '\d+'])]
+    public function show(Eleve $eleve): Response
     {
-        $eleve = $eleveRepository->find($id);
-
-        if (!$eleve) {
-            throw $this->createNotFoundException('Élève non trouvé');
-        }
-
-        return $this->render('eleve/index.html.twig', [
-            'eleve' => $eleve, // Transmission de la variable au template
+        return $this->render('eleve/show.html.twig', [
+            'eleve' => $eleve
         ]);
     }
+
+    // Méthode pour la liste des élèves
     #[Route('/eleves', name: 'eleve_list')]
     public function list(EleveRepository $eleveRepository): Response
     {
         $eleves = $eleveRepository->findAll();
         return $this->render('eleve/list.html.twig', [
-            'eleves' => $eleves,
+            'eleves' => $eleves
+        ]);
+    }
+
+    // Méthode pour ajouter un nouvel élève
+    #[Route('/eleve/new', name: 'eleve_new')]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $eleve = new Eleve();
+        $form = $this->createForm(EleveType::class, $eleve);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($eleve);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('eleve_list');
+        }
+
+        return $this->render('eleve/new.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 }
