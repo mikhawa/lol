@@ -1,11 +1,19 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Hello EleveController!{% endblock %}
+{% block title %}Détails de l'élève{% endblock %}
 
 {% block body %}
-    {% for note in eleve.notes %}
-        <p>Matière : {{ note.matiere }}</p>
-        <p>Moyenne : {{ note.getMoyenne() }}</p>
-    {% endfor %}
+    <h1>Notes de {{ eleve.nom }} {{ eleve.prenom }}</h1>
 
+    {% if eleve.notes is not empty %}
+        <ul>
+            {% for eleve in eleves %}
+                <li>
+                    {{ eleve.nom }} {{ eleve.prenom }}
+                    <a href="{{ path('eleve_show', { id: eleve.id }) }}">Voir les détails</a>
+                </li>
+            {% endfor %}
+
+        </ul>
+    {% else %}
+        <p>Aucune note disponible pour cet élève.</p>
+    {% endif %}
 {% endblock %}

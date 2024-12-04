@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des élèves{% endblock %}
+
+{% block body %}
+    <h1>Liste des élèves</h1>
+
+    <div class="eleves-list">
+        {% if eleves %}
+            <ul>
+                {% for eleve in eleves %}
+                    <li>
+                        <a href="{{ path('eleve_show', {'id': eleve.id}) }}">
+                            {{ eleve.nom }} {{ eleve.prenom }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Aucun élève trouvé.</p>
+        {% endif %}
+    </div>
+{% endblock %}
