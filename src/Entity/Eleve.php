@@ -33,7 +33,7 @@ class Eleve
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $avatar = null;
 
-    #[ORM\OneToMany(mappedBy: 'eleve', targetEntity: Note::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(targetEntity: Note::class, mappedBy: 'eleve', cascade: ['persist', 'remove'])]
     private Collection $notes;
 
     public function __construct()

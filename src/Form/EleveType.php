@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Eleve;
+use App\Entity\Note;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -44,7 +46,7 @@ class EleveType extends AbstractType
                 'label' => 'Photo de profil'
             ])
             ->add('notes', CollectionType::class, [
-                'entry_type' => NumberType::class,
+                'entry_type' => NoteType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
@@ -53,6 +55,19 @@ class EleveType extends AbstractType
                     'class' => 'notes-collection'
                 ]
             ])
+          /* ->add('notes', NoteType::class, [
+                'label' => false,
+
+
+                'entry_type' => NumberType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                //'prototype' => true,
+                'attr' => [
+                    'class' => 'notes-collection'
+                ]
+            ])*/
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer',
                 'attr' => ['class' => 'btn btn-primary']

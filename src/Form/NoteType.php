@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Note;
+use Doctrine\DBAL\Types\FloatType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -12,17 +15,14 @@ class NoteType extends AbstractType
     {
         $builder
             ->add('matiere')
-            ->add('notes', CollectionType::class, [
-                'entry_type' => IntegerType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-            ]);
+            ->add('note');
 
     }
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             // Configure your form options here
+            'data_class' => Note::class,
         ]);
     }
 }
