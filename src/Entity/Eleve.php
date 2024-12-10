@@ -12,7 +12,10 @@ class Eleve
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column (
+        type: 'integer',
+        options: ['unsigned' => true],
+    )]
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
@@ -27,7 +30,7 @@ class Eleve
     #[ORM\Column(length: 1)]
     private ?string $sexe = null;
 
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 25)]
     private ?string $classe = null;
 
     #[ORM\Column(length: 255, nullable: true)]

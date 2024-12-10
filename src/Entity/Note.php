@@ -10,13 +10,23 @@ class Note
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(
+        type: 'integer',
+        options: ['unsigned' => true],
+    )]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(
+        type:'string',
+        length: 50,
+        options: ['default' => ''],
+    )]
     private ?string $matiere = null;
 
-    #[ORM\Column]
+    #[ORM\Column(
+        type: 'float',
+        options: ['unsigned' => true],
+    )]
     private ?float $note = null;
 
     #[ORM\ManyToOne(targetEntity: Eleve::class, inversedBy: 'notes')]
