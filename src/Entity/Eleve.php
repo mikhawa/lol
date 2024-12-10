@@ -12,7 +12,10 @@ class Eleve
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column (
+        type: 'integer',
+        options: ['unsigned' => true],
+    )]
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
@@ -21,13 +24,25 @@ class Eleve
     #[ORM\Column(length: 100)]
     private ?string $prenom = null;
 
-    #[ORM\Column]
+    #[ORM\Column(
+        type: 'smallint',
+        options: [
+            'unsigned' => true,
+            'comment' => 'L\'âge de l\'élève',
+        ],
+    )]
     private ?int $age = null;
 
     #[ORM\Column(length: 1)]
     private ?string $sexe = null;
 
-    #[ORM\Column(length: 10)]
+    // ici, il faudra une jointure avec la table Classe
+    #[ORM\Column(
+        length: 25,
+        options: [
+            'comment' => 'Devra être une référence à une entité Classe',
+        ],
+    )]
     private ?string $classe = null;
 
     #[ORM\Column(length: 255, nullable: true)]
