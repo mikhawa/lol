@@ -16,6 +16,7 @@ class Note
     )]
     private ?int $id = null;
 
+    // devra être une référence à une entité Matiere (nouvelle table)
     #[ORM\Column(
         type:'string',
         length: 50,
