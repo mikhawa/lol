@@ -24,12 +24,12 @@ class EleveController extends AbstractController
     }
 
     // Méthode pour la liste des élèves
-    #[Route('/eleves', name: 'eleve_list')]
+    #[Route('/eleve', name: 'eleve_list')]
     public function list(EleveRepository $eleveRepository): Response
     {
-        $eleves = $eleveRepository->findAll();
+        $eleve = $eleveRepository->findAll();
         return $this->render('eleve/list.html.twig', [
-            'eleves' => $eleves
+            'eleve' => $eleve
         ]);
     }
 

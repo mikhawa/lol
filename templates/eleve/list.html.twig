@@ -8,9 +8,9 @@
     <a href="{{ path('eleve_new') }}" class="btn btn-primary">Ajouter un élève</a>
 
     <div class="eleves-list">
-        {% if eleves %}
+        {% if eleve %}
             <ul>
-                {% for eleve in eleves %}
+                {% for eleve in eleve %}
                     <li>
                         <a href="{{ path('eleve_show', {'id': eleve.id}) }}">
                             {{ eleve.nom }} {{ eleve.prenom }}
