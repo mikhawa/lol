@@ -1,115 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter un nouvel élève{% endblock %}
+{% block title %}Ajouter un élève{% endblock %}
 
 {% block body %}
-    <div class="container mt-4">
-        <div class="card">
-            <div class="card-header">
-                <h1>Ajouter un nouvel élève</h1>
-            </div>
+    <div class="container my-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="text-primary">Ajouter un élève</h1>
+            <a href="{{ path('eleve_list') }}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Retour à la liste
+            </a>
+        </div>
+
+        <div class="card shadow-sm">
             <div class="card-body">
-                {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
-
+                {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group mb-3">
-                            {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
-                            {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
-                        </div>
+                    <div class="col-md-6 mb-3">
+                        {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le nom'}}) }}
+                        {{ form_errors(form.nom) }}
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group mb-3">
-                            {{ form_label(form.prenom, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
-                            {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
-                        </div>
+                    <div class="col-md-6 mb-3">
+                        {{ form_label(form.prenom, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.prenom, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le prénom'}}) }}
+                        {{ form_errors(form.prenom) }}
                     </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group mb-3">
-                            {{ form_label(form.age, 'Âge', {'label_attr': {'class': 'form-label'}}) }}
-                            {{ form_widget(form.age, {'attr': {'class': 'form-control'}}) }}
-                        </div>
+                    <div class="col-md-6 mb-3">
+                        {{ form_label(form.email, 'E-mail', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Entrez l\'adresse e-mail'}}) }}
+                        {{ form_errors(form.email) }}
                     </div>
-                    <div class="col-md-4">
-                        <div class="form-group mb-3">
-                            {{ form_label(form.sexe, 'Sexe', {'label_attr': {'class': 'form-label'}}) }}
-                            {{ form_widget(form.sexe, {'attr': {'class': 'form-select'}}) }}
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group mb-3">
-                            {{ form_label(form.classe, 'Classe', {'label_attr': {'class': 'form-label'}}) }}
-                            {{ form_widget(form.classe, {'attr': {'class': 'form-select'}}) }}
-                        </div>
+                    <div class="col-md-6 mb-3">
+                        {{ form_label(form.age, 'Âge', {'label_attr': {'class': 'form-label'}}) }}
+                        {{ form_widget(form.age, {'attr': {'class': 'form-control', 'placeholder': 'Entrez l\'âge'}}) }}
+                        {{ form_errors(form.age) }}
                     </div>
                 </div>
 
-                <div class="form-group mb-3">
-                    {{ form_label(form.avatar, 'Photo', {'label_attr': {'class': 'form-label'}}) }}
-                    {{ form_widget(form.avatar, {'attr': {'class': 'form-control'}}) }}
+                <div class="d-flex justify-content-end mt-4">
+                    <button class="btn btn-success">
+                        <i class="fas fa-save"></i> Ajouter
+                    </button>
                 </div>
-
-                <div class="form-group mb-3">
-                    <label class="form-label">Notes</label>
-                    <div class="notes-collection" data-prototype="{{ form_widget(form.notes.vars.prototype)|e('html_attr') }}">
-                        {% for note in form.notes %}
-                            <div class="input-group mb-2">
-                                {{ form_widget(note, {'attr': {'class': 'form-control'}}) }}
-                                <button type="button" class="btn btn-danger remove-note">Supprimer</button>
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <button type="button" class="btn btn-secondary add-note">Ajouter une note</button>
-                </div>
-
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Enregistrer</button>
-                    <a href="{{ path('eleve_list') }}" class="btn btn-secondary">Retour à la liste</a>
-                </div>
-
                 {{ form_end(form) }}
             </div>
         </div>
     </div>
-
-    {% block javascripts %}
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var collectionHolder = document.querySelector('.notes-collection');
-                var addButton = document.querySelector('.add-note');
-
-                // Ajouter une nouvelle note
-                addButton.addEventListener('click', function() {
-                    var prototype = collectionHolder.dataset.prototype;
-                    var index = collectionHolder.children.length;
-                    var newForm = prototype.replace(/__name__/g, index);
-
-                    var div = document.createElement('div');
-                    div.classList.add('input-group', 'mb-2');
-                    div.innerHTML = newForm;
-
-                    var removeButton = document.createElement('button');
-                    removeButton.type = 'button';
-                    removeButton.classList.add('btn', 'btn-danger');
-                    removeButton.textContent = 'Supprimer';
-                    removeButton.addEventListener('click', function() {
-                        div.remove();
-                    });
-
-                    div.appendChild(removeButton);
-                    collectionHolder.appendChild(div);
-                });
-
-                // Supprimer une note
-                document.querySelectorAll('.remove-note').forEach(function(button) {
-                    button.addEventListener('click', function() {
-                        this.closest('.input-group').remove();
-                    });
-                });
-            });
-        </script>
-    {% endblock %}
 {% endblock %}

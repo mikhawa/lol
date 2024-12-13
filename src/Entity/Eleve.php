@@ -51,6 +51,9 @@ class Eleve
     #[ORM\OneToMany(targetEntity: Note::class, mappedBy: 'eleve', cascade: ['persist', 'remove'])]
     private Collection $notes;
 
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
+
     public function __construct()
     {
         $this->notes = new ArrayCollection();
@@ -155,6 +158,18 @@ class Eleve
                 $note->setEleve(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
 
         return $this;
     }

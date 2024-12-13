@@ -34,7 +34,7 @@ class EleveController extends AbstractController
     }
 
     // Méthode pour ajouter un nouvel élève
-    #[Route('/eleve/new', name: 'eleve_new')]
+    #[Route('/eleve/new', name: 'eleve_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $eleve = new Eleve();
@@ -45,11 +45,13 @@ class EleveController extends AbstractController
             $entityManager->persist($eleve);
             $entityManager->flush();
 
-            return $this->redirectToRoute('eleve_list');
+            $this->addFlash('success', 'Élève ajouté avec succès.');
+
+            return $this->redirectToRoute('eleve_index');
         }
 
         return $this->render('eleve/new.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 

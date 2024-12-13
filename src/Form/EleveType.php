@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Eleve;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use App\Entity\Note;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -25,8 +27,13 @@ class EleveType extends AbstractType
             ->add('prenom', TextType::class, [
                 'attr' => ['placeholder' => 'Entrez le prénom']
             ])
-            ->add('age', NumberType::class, [
-                'attr' => ['min' => 0]
+            ->add('email', EmailType::class, [
+                'label' => 'Adresse e-mail',
+                'attr' => ['placeholder' => 'Entrez l\'adresse e-mail'],
+            ])
+            ->add('age', IntegerType::class, [ // Ajout du champ "age" comme Integer
+                'label' => 'Âge',
+                'attr' => ['placeholder' => 'Entrez l\'âge'],
             ])
             ->add('sexe', ChoiceType::class, [
                 'choices' => [
