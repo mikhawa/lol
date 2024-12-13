@@ -1,25 +1,39 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Liste des élèves{% endblock %}
 
 {% block body %}
-    <h1>Liste des élèves</h1>
+    <div class="container mt-5 pt-5">
+        <h1 class="mb-4 text-center">Liste des élèves</h1>
 
-    <a href="{{ path('eleve_new') }}" class="btn btn-primary">Ajouter un élève</a>
+        <div class="d-flex justify-content-center mb-4">
+            <a href="{{ path('eleve_new') }}" class="btn btn-success btn-lg">Ajouter un élève</a>
+        </div>
 
-    <div class="eleves-list">
-        {% if eleve %}
-            <ul>
+        <div class="eleves-list row">
+            {% if eleve %}
                 {% for eleve in eleve %}
-                    <li>
-                        <a href="{{ path('eleve_show', {'id': eleve.id}) }}">
-                            {{ eleve.nom }} {{ eleve.prenom }}
-                        </a>
-                    </li>
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ eleve.nom }} {{ eleve.prenom }}</h5>
+                                <a href="{{ path('eleve_show', {'id': eleve.id}) }}" class="btn btn-primary btn-sm">Voir</a>
+                            </div>
+                        </div>
+                    </div>
                 {% endfor %}
-            </ul>
-        {% else %}
-            <p>Aucun élève trouvé.</p>
-        {% endif %}
+            {% else %}
+                <p class="text-center">Aucun élève trouvé.</p>
+            {% endif %}
+        </div>
     </div>
+{% endblock %}
+
+{% block footer %}
+    <footer class="bg-dark text-white text-center py-3 mt-auto">
+        <div class="container">
+            &copy; {{ "now"|date("Y") }} - MonSite. Tous droits réservés.
+        </div>
+    </footer>
 {% endblock %}
