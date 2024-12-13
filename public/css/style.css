@@ -529,6 +529,12 @@ ol {
   margin-right: -10px;
 }
 
+section.hero {
+  background-color: #333 !important;
+  height: 100vh !important;
+}
+
+
 .work__item {
   height: 311px !important;
   width: calc(16.67% - 10px);
