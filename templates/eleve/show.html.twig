@@ -16,17 +16,19 @@
             <dt>Email :</dt>
             <dd>{{ eleve.email ?? 'Non spécifié' }}</dd>
 
-            <dt>Date de naissance :</dt>
-            <dd>{{ eleve.date_naissance is not null ? eleve.date_naissance|date('d/m/Y') : 'Non spécifiée' }}</dd>
+{#            <dt>Date de naissance :</dt>#}
+{#            <dd>{{ eleve.date_naissance is not null ? eleve.date_naissance|date('d/m/Y') : 'Non spécifiée' }}</dd>#}
+            <dt>Âge :</dt>
+            <dd>{{ eleve.age is not null ? eleve.age ~ ' ans' : 'Non spécifié' }}</dd>
         </dl>
     </div>
 
     <div class="eleve-actions">
-        <a href="{{ path('eleve_edit', {'id': eleve.id}) }}" class="btn btn-warning">Modifier</a>
+        <a href="{{ path('eleve_new', {'id': eleve.id}) }}" class="btn btn-warning">Modifier</a>
         <form method="post" action="{{ path('eleve_delete', {'id': eleve.id}) }}" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet élève ?');">
             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ eleve.id) }}">
             <button class="btn btn-danger">Supprimer</button>
         </form>
-        <a href="{{ path('eleve_index') }}" class="btn btn-secondary">Retour à la liste</a>
+        <a href="{{ path('eleve_list') }}" class="btn btn-secondary">Retour à la liste</a>
     </div>
 {% endblock %}

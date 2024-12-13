@@ -52,4 +52,19 @@ class EleveController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    #[Route('/eleve/{id}/delete', name: 'eleve_delete', methods: ['POST'])]
+    public function delete(Request $request, Eleve $eleve, EntityManagerInterface $entityManager): Response
+    {
+        // Vérification du token CSRF
+        if ($this->isCsrfTokenValid('delete' . $eleve->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($eleve);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Élève supprimé avec succès.');
+        }
+
+        return $this->redirectToRoute('eleve_list');
+    }
+
 }
