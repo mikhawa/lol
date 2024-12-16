@@ -3,48 +3,6 @@
 {% block title %}Détails de l'élève{% endblock %}
 
 {% block body %}
-<<<<<<< HEAD
-    <section class="identity-card spad">
-        <div class="card-container">
-            <div class="card-content">
-                <!-- Section photo -->
-                <div class="identity-photo">
-                    <img
-                            src="{{ eleve.avatar is not null ? asset('uploads/avatar/' ~ eleve.avatar) : asset('img/students/default-photo.jpg') }}"
-                            alt="Photo de {{ eleve.nom }}"
-                    />
-                </div>
-
-                <!-- Section informations -->
-                <div class="identity-info">
-                    <!-- Nom complet -->
-                    <h2 class="identity-name">{{ eleve.nom ?? 'Non spécifié' }} {{ eleve.prenom ?? '' }}</h2>
-
-                    <!-- Liste des détails -->
-                    <dl class="identity-details">
-                        <dt>Email :</dt>
-                        <dd>{{ eleve.email ?? 'Non spécifié' }}</dd>
-
-                        <dt>Âge :</dt>
-                        <dd>{{ eleve.age is not null ? eleve.age ~ ' ans' : 'Non spécifié' }}</dd>
-
-                        {# Ajoutez d'autres détails si nécessaire, ex. date de naissance #}
-                        {# <dt>Date de naissance :</dt>
-                    <dd>{{ eleve.date_naissance is not null ? eleve.date_naissance|date('d/m/Y') : 'Non spécifiée' }}</dd> #}
-                    </dl>
-                </div>
-            </div>
-
-            <!-- Section actions -->
-            <div class="card-actions text-center">
-                <a href="{{ path('eleve_new', {'id': eleve.id}) }}" class="btn btn-warning">Modifier</a>
-                <form method="post" action="{{ path('eleve_delete', {'id': eleve.id}) }}" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet élève ?');">
-                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ eleve.id) }}">
-                    <button class="btn btn-danger">Supprimer</button>
-                </form>
-                <a href="{{ path('eleve_list') }}" class="btn btn-secondary">Retour à la liste</a>
-            </div>
-=======
 
     <section class="about spad py-5">
     <!-- Breadcrumb Begin -->
