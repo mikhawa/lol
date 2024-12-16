@@ -35,27 +35,6 @@ class EleveController extends AbstractController
         ]);
     }
 
-    // Méthode pour ajouter un nouvel élève
-//    #[Route('/eleve/new', name: 'eleve_new', methods: ['GET', 'POST'])]
-//    public function new(Request $request, EntityManagerInterface $entityManager): Response
-//    {
-//        $eleve = new Eleve();
-//        $form = $this->createForm(EleveType::class, $eleve);
-//
-//        $form->handleRequest($request);
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $entityManager->persist($eleve);
-//            $entityManager->flush();
-//
-//            $this->addFlash('success', 'Élève ajouté avec succès.');
-//
-//            return $this->redirectToRoute('eleve_list');
-//        }
-//
-//        return $this->render('eleve/new.html.twig', [
-//            'form' => $form->createView(),
-//        ]);
-//    }
     #[Route('/eleve/new', name: 'eleve_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
@@ -91,7 +70,7 @@ class EleveController extends AbstractController
 
             // Persiste et sauvegarde en base de données
             $entityManager->persist($eleve);
-            $entityManager->flush();
+
 
             // Message flash de succès
             $this->addFlash('success', 'Élève ajouté avec succès.');

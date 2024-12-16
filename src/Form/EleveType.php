@@ -21,8 +21,17 @@ class EleveType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+//            ->add('nom', TextType::class, [
+//                'attr' => ['placeholder' => 'Entrez le nom']
+//            ])
             ->add('nom', TextType::class, [
-                'attr' => ['placeholder' => 'Entrez le nom']
+                'required' => true, // Champ requis
+                'label' => 'Nom',
+//                'constraints' => [
+//                    new NotBlank([
+//                        'message' => 'Veuillez renseigner un nom.',
+//                    ]),
+//                ],
             ])
             ->add('prenom', TextType::class, [
                 'attr' => ['placeholder' => 'Entrez le prénom']
