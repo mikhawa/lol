@@ -127,13 +127,104 @@ ol {
   text-transform: uppercase;
   margin-bottom: 6px;
 }
-.section-title h2 {
-  color: #ffffff;
-  font-weight: 700;
-  text-transform: uppercase;
-  position: relative;
-  padding-bottom: 25px;
+/*.section-title h2 {*/
+/*  color: #ffffff;*/
+/*  font-weight: 700;*/
+/*  text-transform: uppercase;*/
+/*  position: relative;*/
+/*  padding-bottom: 25px;*/
+/*}*/
+section h1,
+section h2 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 600;
 }
+/* Détails de l'élève */
+.eleve-details {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.eleve-details dl {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Espace vertical entre les champs */
+}
+
+.eleve-details dt {
+  font-weight: bold;
+  color: #555;
+  font-size: 1.2rem;
+}
+
+.eleve-details dd {
+  margin: 0;
+  color: #222;
+  font-size: 1rem;
+}
+
+/* Actions : boutons */
+.eleve-actions {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.eleve-actions a.btn,
+.eleve-actions button.btn {
+  margin: 0 0.5rem; /* Espacements horizontaux entre les boutons */
+  font-size: 1rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.eleve-actions a.btn-warning {
+  background-color: #ffc107;
+  color: #fff;
+}
+
+.eleve-actions button.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+}
+
+.eleve-actions a.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.eleve-actions a.btn:hover,
+.eleve-actions button.btn:hover {
+  opacity: 0.9;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Breadcrumb text styling */
+.breadcrumb__text h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.breadcrumb__text .breadcrumb__links a {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 0.5rem;
+}
+
+.breadcrumb__text .breadcrumb__links span {
+  color: #ccc;
+}
+
 .section-title h2:after {
   position: absolute;
   left: 0;

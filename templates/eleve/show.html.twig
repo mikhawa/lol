@@ -1,54 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% set breadcrumb = true %} {# Pour adapter le style de la navbar en fonction du breadcrumb #}
-
 {% block title %}Détails de l'élève{% endblock %}
 
 {% block body %}
-{#    <!-- Breadcrumb Begin -->#}
-{#    <div class="breadcrumb-option spad set-bg" data-setbg="img/breadcrumb-bg.jpg">#}
-{#        <div class="container">#}
-{#            <div class="row">#}
-{#                <div class="col-lg-12 text-center">#}
-{#                    <div class="breadcrumb__text">#}
-{#                        <h2>Liste des élèves</h2>#}
-{#                        <div class="breadcrumb__links">#}
-{#                            <a href="{{ path('app_homepage') }}">Accueil</a>#}
-{#                            <span>Liste des élèves</span>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
-{#    <!-- Breadcrumb End -->#}
+    <section class="identity-card spad">
+        <div class="card-container">
+            <div class="card-content">
+                <!-- Section photo -->
+                <div class="identity-photo">
+                    <img
+                            src="{{ eleve.avatar is not null ? asset('uploads/avatar/' ~ eleve.avatar) : asset('img/students/default-photo.jpg') }}"
+                            alt="Photo de {{ eleve.nom }}"
+                    />
+                </div>
 
-    <section class="about spad">
-        <h1 class="text-center">Détails de l'élève</h1>
+                <!-- Section informations -->
+                <div class="identity-info">
+                    <!-- Nom complet -->
+                    <h2 class="identity-name">{{ eleve.nom ?? 'Non spécifié' }} {{ eleve.prenom ?? '' }}</h2>
 
-        <div class="eleve-details">
-            <dl>
-                <dt>Nom :</dt>
-                <dd>{{ eleve.nom ?? 'Non spécifié' }}</dd>
+                    <!-- Liste des détails -->
+                    <dl class="identity-details">
+                        <dt>Email :</dt>
+                        <dd>{{ eleve.email ?? 'Non spécifié' }}</dd>
 
-                <dt>Prénom :</dt>
-                <dd>{{ eleve.prenom ?? 'Non spécifié' }}</dd>
+                        <dt>Âge :</dt>
+                        <dd>{{ eleve.age is not null ? eleve.age ~ ' ans' : 'Non spécifié' }}</dd>
 
-                <dt>Email :</dt>
-                <dd>{{ eleve.email ?? 'Non spécifié' }}</dd>
+                        {# Ajoutez d'autres détails si nécessaire, ex. date de naissance #}
+                        {# <dt>Date de naissance :</dt>
+                    <dd>{{ eleve.date_naissance is not null ? eleve.date_naissance|date('d/m/Y') : 'Non spécifiée' }}</dd> #}
+                    </dl>
+                </div>
+            </div>
 
-                <dt>Âge :</dt>
-                <dd>{{ eleve.age is not null ? eleve.age ~ ' ans' : 'Non spécifié' }}</dd>
-            </dl>
-        </div>
-
-        <div class="eleve-actions text-center my-4">
-            <a href="{{ path('eleve_new', {'id': eleve.id}) }}" class="btn btn-warning">Modifier</a>
-            <form method="post" action="{{ path('eleve_delete', {'id': eleve.id}) }}" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet élève ?');">
-                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ eleve.id) }}">
-                <button class="btn btn-danger">Supprimer</button>
-            </form>
-            <a href="{{ path('eleve_list') }}" class="btn btn-secondary">Retour à la liste</a>
+            <!-- Section actions -->
+            <div class="card-actions text-center">
+                <a href="{{ path('eleve_new', {'id': eleve.id}) }}" class="btn btn-warning">Modifier</a>
+                <form method="post" action="{{ path('eleve_delete', {'id': eleve.id}) }}" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet élève ?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ eleve.id) }}">
+                    <button class="btn btn-danger">Supprimer</button>
+                </form>
+                <a href="{{ path('eleve_list') }}" class="btn btn-secondary">Retour à la liste</a>
+            </div>
         </div>
     </section>
 {% endblock %}
