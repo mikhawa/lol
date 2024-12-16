@@ -1,34 +1,54 @@
 {% extends 'base.html.twig' %}
 
+{% set breadcrumb = true %} {# Pour adapter le style de la navbar en fonction du breadcrumb #}
+
 {% block title %}Détails de l'élève{% endblock %}
 
 {% block body %}
-    <h1>Détails de l'élève</h1>
+{#    <!-- Breadcrumb Begin -->#}
+{#    <div class="breadcrumb-option spad set-bg" data-setbg="img/breadcrumb-bg.jpg">#}
+{#        <div class="container">#}
+{#            <div class="row">#}
+{#                <div class="col-lg-12 text-center">#}
+{#                    <div class="breadcrumb__text">#}
+{#                        <h2>Liste des élèves</h2>#}
+{#                        <div class="breadcrumb__links">#}
+{#                            <a href="{{ path('app_homepage') }}">Accueil</a>#}
+{#                            <span>Liste des élèves</span>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#    <!-- Breadcrumb End -->#}
 
-    <div class="eleve-details">
-        <dl>
-            <dt>Nom :</dt>
-            <dd>{{ eleve.nom ?? 'Non spécifié' }}</dd>
+    <section class="about spad">
+        <h1 class="text-center">Détails de l'élève</h1>
 
-            <dt>Prénom :</dt>
-            <dd>{{ eleve.prenom ?? 'Non spécifié' }}</dd>
+        <div class="eleve-details">
+            <dl>
+                <dt>Nom :</dt>
+                <dd>{{ eleve.nom ?? 'Non spécifié' }}</dd>
 
-            <dt>Email :</dt>
-            <dd>{{ eleve.email ?? 'Non spécifié' }}</dd>
+                <dt>Prénom :</dt>
+                <dd>{{ eleve.prenom ?? 'Non spécifié' }}</dd>
 
-{#            <dt>Date de naissance :</dt>#}
-{#            <dd>{{ eleve.date_naissance is not null ? eleve.date_naissance|date('d/m/Y') : 'Non spécifiée' }}</dd>#}
-            <dt>Âge :</dt>
-            <dd>{{ eleve.age is not null ? eleve.age ~ ' ans' : 'Non spécifié' }}</dd>
-        </dl>
-    </div>
+                <dt>Email :</dt>
+                <dd>{{ eleve.email ?? 'Non spécifié' }}</dd>
 
-    <div class="eleve-actions">
-        <a href="{{ path('eleve_new', {'id': eleve.id}) }}" class="btn btn-warning">Modifier</a>
-        <form method="post" action="{{ path('eleve_delete', {'id': eleve.id}) }}" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet élève ?');">
-            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ eleve.id) }}">
-            <button class="btn btn-danger">Supprimer</button>
-        </form>
-        <a href="{{ path('eleve_list') }}" class="btn btn-secondary">Retour à la liste</a>
-    </div>
+                <dt>Âge :</dt>
+                <dd>{{ eleve.age is not null ? eleve.age ~ ' ans' : 'Non spécifié' }}</dd>
+            </dl>
+        </div>
+
+        <div class="eleve-actions text-center my-4">
+            <a href="{{ path('eleve_new', {'id': eleve.id}) }}" class="btn btn-warning">Modifier</a>
+            <form method="post" action="{{ path('eleve_delete', {'id': eleve.id}) }}" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet élève ?');">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ eleve.id) }}">
+                <button class="btn btn-danger">Supprimer</button>
+            </form>
+            <a href="{{ path('eleve_list') }}" class="btn btn-secondary">Retour à la liste</a>
+        </div>
+    </section>
 {% endblock %}
