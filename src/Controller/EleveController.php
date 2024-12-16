@@ -16,13 +16,33 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class EleveController extends AbstractController
 {
+    /**
+     * @Route("/eleve/{id}/fiche", name="fiche_stagiaire")
+     */
+    public function ficheStagiaire(int $id, EntityManagerInterface $entityManager): Response
+    {
+        // Récupérer l'élève/stagiaire par son ID
+        $stagiaire = $entityManager->getRepository(Eleve::class)->find($id);
+
+        // S'assurer que l'élève existe
+        if (!$stagiaire) {
+            throw $this->createNotFoundException('Le stagiaire demandé n\'existe pas.');
+        }
+
+        // Rendre une vue et passer les données du stagiaire
+        return $this->render('eleve/fiche.html.twig', [
+            'nomStagiaire' => $stagiaire->getNom(),
+        ]);
+    }
+
     // Méthode pour afficher un élève spécifique
     #[Route('/eleve/{id}', name: 'eleve_show', requirements: ['id' => '\d+'])]
     public function show(Eleve $eleve): Response
     {
         return $this->render('eleve/show.html.twig', [
-            'eleve' => $eleve
+            'eleve' => $eleve,
         ]);
+
     }
 
     // Méthode pour la liste des élèves
@@ -75,8 +95,12 @@ class EleveController extends AbstractController
             // Message flash de succès
             $this->addFlash('success', 'Élève ajouté avec succès.');
 
+<<<<<<< HEAD
             // Redirige vers la liste
             return $this->redirectToRoute('eleve_list');
+=======
+            return $this->redirectToRoute('eleve_show', ['id' => $eleve->getId()]);
+>>>>>>> nouvelle-branche
         }
 
         return $this->render('eleve/new.html.twig', [
