@@ -95,12 +95,11 @@ class EleveController extends AbstractController
             // Message flash de succès
             $this->addFlash('success', 'Élève ajouté avec succès.');
 
-<<<<<<< HEAD
+
             // Redirige vers la liste
             return $this->redirectToRoute('eleve_list');
-=======
+
             return $this->redirectToRoute('eleve_show', ['id' => $eleve->getId()]);
->>>>>>> nouvelle-branche
         }
 
         return $this->render('eleve/new.html.twig', [
