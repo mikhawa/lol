@@ -63,50 +63,49 @@ class EleveController extends AbstractController
 
         $form->handleRequest($request); // Gère la soumission du formulaire
 
+        // Vérification de la soumission et de sa validité
+        if ($form->isSubmitted() && !$form->isValid()) {
+            $errors = $form->getErrors(true, false);
+            foreach ($errors as $error) {
+                dump($error->getMessage());
+            }
+            $this->addFlash('error', 'Le formulaire contient des erreurs.');
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             // Gestion de l'upload de l'avatar
-            $avatarFile = $form->get('avatar')->getData(); // Récupérer le fichier uploadé
+            $avatarFile = $form->get('avatar')->getData();
 
             if ($avatarFile) {
-                // Générer un nom unique pour le fichier
                 $originalFilename = pathinfo($avatarFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename); // Assure un nom "safe"
+                $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $avatarFile->guessExtension();
 
                 try {
-                    // Déplacer le fichier au répertoire upload configuré
                     $avatarFile->move(
-                        $this->getParameter('avatars_directory'), // Défini dans `services.yaml`
+                        $this->getParameter('avatars_directory'),
                         $newFilename
                     );
                 } catch (FileException $e) {
-                    // Gérer les erreurs lors de l'upload
                     $this->addFlash('error', 'Erreur lors de l\'upload de la photo.');
                     return $this->redirectToRoute('eleve_new');
                 }
 
-                $eleve->setAvatar($newFilename); // Met à jour la propriété `avatar` de l'entité Eleve
+                $eleve->setAvatar($newFilename);
             }
 
             // Persiste et sauvegarde en base de données
             $entityManager->persist($eleve);
+            $entityManager->flush(); // N'oubliez pas de flusher !
 
-
-            // Message flash de succès
             $this->addFlash('success', 'Élève ajouté avec succès.');
-
-
-            // Redirige vers la liste
             return $this->redirectToRoute('eleve_list');
-
-            return $this->redirectToRoute('eleve_show', ['id' => $eleve->getId()]);
         }
 
         return $this->render('eleve/new.html.twig', [
             'form' => $form->createView(),
         ]);
     }
-
 
     #[Route('/eleve/{id}/delete', name: 'eleve_delete', methods: ['POST'])]
     public function delete(Request $request, Eleve $eleve, EntityManagerInterface $entityManager): Response
