@@ -69,8 +69,17 @@
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     <p class="footer__copyright__text">Copyright &copy;
                         <script>
-                            document.write(new Date().getFullYear());
+                            window.addEventListener('DOMContentLoaded', function () {
+                                const yearElement = document.getElementById('current-year');
+                                if (yearElement) {
+                                    yearElement.textContent = new Date().getFullYear();
+                                }
+                            });
                         </script>
+                        <span id="current-year"></span>
+{#                        <script>#}
+{#                            document.write(new Date().getFullYear());#}
+{#                        </script>#}
                         Tout droit réservé | Au Centre de formation 2 mille <i class="fa fa-heart-o" aria-hidden="true"></i>
                         by <a href="#" target="_blank">Magib Sall & Mickael Plitz </a> Formateur Web
                     </p>

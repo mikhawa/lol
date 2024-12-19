@@ -49,10 +49,18 @@ class EleveController extends AbstractController
     #[Route('/eleve', name: 'eleve_list')]
     public function list(EleveRepository $eleveRepository): Response
     {
-        $eleve = $eleveRepository->findAll();
-        return $this->render('eleve/list.html.twig', [
-            'eleve' => $eleve
+        $eleve = $eleveRepository->findAll(); // Récupère tous les élèves
+
+        $response = $this->render('eleve/list.html.twig', [
+            'eleve' => $eleve, // Passer la liste des élèves au template Twig
         ]);
+
+        // Désactiver le cache HTTP pour cette réponse
+        $response->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
+        $response->headers->set('Pragma', 'no-cache');
+        $response->headers->set('Expires', '0');
+
+        return $response;
     }
 
     #[Route('/eleve/new', name: 'eleve_new', methods: ['GET', 'POST'])]
