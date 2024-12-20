@@ -8,3 +8,14 @@ import './bootstrap.js';
 import './styles/app.css';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+
+    document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+    console.log("L'utilisateur a changé d'onglet.");
+    // Arrêter ici certaines fonctionnalités
+} else {
+    console.log("L'utilisateur est revenu sur cet onglet.");
+    // Reprendre les actions vitales ici
+}
+});
+

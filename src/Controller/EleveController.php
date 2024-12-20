@@ -74,7 +74,7 @@ class EleveController extends AbstractController
         // Vérification de la soumission et de sa validité
         if ($form->isSubmitted() && !$form->isValid()) {
             $errors = $form->getErrors(true, false);
-            foreach ($errors as $error) {
+            foreach ($form->getErrors(true, false) as $error) {
                 dump($error->getMessage());
             }
             $this->addFlash('error', 'Le formulaire contient des erreurs.');
